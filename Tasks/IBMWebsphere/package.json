@@ -1,0 +1,29 @@
+{
+  "name": "vsts-ibm-websphere-extension",
+  "version": "1.113.0",
+  "description": "VSTS task to deploy your applications to the IBM Websphere",
+  "main": "websphere-deploy.js",
+  "dependencies": {
+    "vsts-task-lib": "^1.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Microsoft Corporation",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Microsoft/vsts-ibm-websphere-extension.git"
+  },
+  "keywords": [
+    "VSTS",
+    "IBM",
+    "Websphere",
+    "Deploy"
+  ],
+  "bugs": {
+    "url": "https://github.com/Microsoft/vsts-ibm-websphere-extension/issues"
+  },
+  "homepage": "https://github.com/Microsoft/vsts-ibm-websphere-extension#readme"
+}
