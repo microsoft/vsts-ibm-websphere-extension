@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "ibm-websphere",
     "name": "IBM WebSphere",
-    "version": "1.113.23",
+    "version": "1.114.0",
     "publisher": "xzhe",
     "description": "",
     "public": false,

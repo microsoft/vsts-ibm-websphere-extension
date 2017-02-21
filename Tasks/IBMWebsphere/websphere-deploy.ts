@@ -144,24 +144,16 @@ async function run() {
             }
 
             let startApplication: boolean = tl.getBoolInput('startApplication', false);
-            let installOptions: string = tl.getInput('installOptions', false);
-            if (!installOptions) {
-                command = `AdminApp.install('${contentFile}', '[-appname ${appName} -node ${nodeName} -server ${appServerName} -cell ${cellName} -MapWebModToVH [["${webModule}" "${uri}" "${virtualHost}"]] -contextroot ${contextRoot}]'); AdminConfig.save(); `;
-            } else {
-                command = `AdminApp.install('${contentFile}', '[-appname ${appName} -node ${nodeName} -server ${appServerName} -cell ${cellName} -MapWebModToVH [["${webModule}" "${uri}" "${virtualHost}"]] -contextroot ${contextRoot} ${installOptions}]'); AdminConfig.save(); `;
-            }
+            let installOptions: string = tl.getInput('installOptions', false) || '';
+            command = `AdminApp.install('${contentFile}', '[-appname ${appName} -node ${nodeName} -server ${appServerName} -cell ${cellName} -MapWebModToVH [["${webModule}" "${uri}" "${virtualHost}"]] -contextroot ${contextRoot} ${installOptions}]'); AdminConfig.save(); `;
             if (startApplication) {
                 let startAppCommmand: string = `appManager = AdminControl.queryNames('cell=${cellName},node=${nodeName},type=ApplicationManager,process=${appServerName},*'); AdminControl.invoke(appManager, 'startApplication', '${appName}');`;
                 command += startAppCommmand;
             }
         } else {
             tl.debug('update existing application');
-            let updateOptions: string = tl.getInput('updateOptions', false);
-            if (!updateOptions) {
-                command = `AdminApp.update('${appName}', 'app', '[-operation update -contents ${contentFile}]');  AdminConfig.save();`;
-            } else {
-                command = `AdminApp.update('${appName}', 'app', '[-operation update -contents ${contentFile} ${updateOptions}]');  AdminConfig.save();`;
-            }
+            let updateOptions: string = tl.getInput('updateOptions', false) || '';
+            command = `AdminApp.update('${appName}', 'app', '[-operation update -contents ${contentFile} ${updateOptions}]');  AdminConfig.save();`;
         }
 
         let wsadmin: ToolRunner = tl.tool(tl.which(wasCommnad, true));
