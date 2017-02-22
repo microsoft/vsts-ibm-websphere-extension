@@ -20,6 +20,7 @@ tmr.setInput('password', 'myPassword');
 tmr.setInput('appName', 'deepspace');
 tmr.setInput('contentPath', '/my/deepspace.war');
 tmr.setInput('installApplicationIfNotExist', 'true');
+tmr.setInput('topologyType', 'singleServer');
 tmr.setInput('nodeName', 'myNodeName');
 tmr.setInput('appServerName', 'myAppServerName');
 tmr.setInput('cellName', 'myCellName');

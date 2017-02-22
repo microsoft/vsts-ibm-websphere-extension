@@ -15,7 +15,7 @@
     "version": {
         "Major": "1",
         "Minor": "114",
-        "Patch": "2"
+        "Patch": "10"
     },
     "minimumAgentVersion": "1.95.3",
     "instanceNameFormat": "Deploy $(appPath) to IBM WebSphere.",
@@ -125,6 +125,29 @@
             "helpMarkDown": "Check this to install application if it does not exist on the target application server."
         },
         {
+            "name": "topologyType",
+            "type": "pickList",
+            "label": "Topology",
+            "defaultValue": "singleServer",
+            "groupName": "deployTask",
+            "helpMarkDown": "Choose the installation topology. It could be a single server or a cluster.",
+            "options": {
+                "singleServer": "Install on a single server",
+                "cluster": "Install on a cluster"
+            },
+            "visibleRule": "installApplicationIfNotExist = true"
+        },
+        {
+            "name": "clusterName",
+            "type": "string",
+            "label": "Target Cluster",
+            "groupName": "deployTask",
+            "defaultValue": "",
+            "required": true,
+            "helpMarkDown": "This is the target cluster for deploying application.",
+            "visibleRule": "installApplicationIfNotExist = true && topologyType = cluster"
+        },
+        {
             "name": "nodeName",
             "type": "string",
             "label": "Target Node",
@@ -132,7 +155,7 @@
             "defaultValue": "",
             "required": true,
             "helpMarkDown": "This is the target node name for the deployment application server.",
-            "visibleRule": "installApplicationIfNotExist = true"
+            "visibleRule": "installApplicationIfNotExist = true && topologyType = singleServer"
         },
         {
             "name": "appServerName",
@@ -142,7 +165,7 @@
             "defaultValue": "",
             "required": true,
             "helpMarkDown": "This is the target deployment application server.",
-            "visibleRule": "installApplicationIfNotExist = true"
+            "visibleRule": "installApplicationIfNotExist = true && topologyType = singleServer"
         },
         {
             "name": "cellName",
@@ -152,7 +175,7 @@
             "defaultValue": "",
             "required": true,
             "helpMarkDown": "This is the target cell.",
-            "visibleRule": "installApplicationIfNotExist = true"
+            "visibleRule": "installApplicationIfNotExist = true && topologyType = singleServer"
         },
         {
             "name": "contextRoot",

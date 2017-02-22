@@ -114,11 +114,6 @@ async function run() {
         if (installApplicationIfNotExist === true && appNotExist) {
             tl.debug('install new application');
 
-            // get target server related information
-            let nodeName: string = tl.getInput('nodeName', false);
-            let appServerName: string = tl.getInput('appServerName', false);
-            let cellName: string = tl.getInput('cellName', false);
-
             // get web module and virtual host related options
             let webModule: string = tl.getInput('webModule', false);
             let virtualHost: string = tl.getInput('virtualHost', false);
@@ -154,10 +149,24 @@ async function run() {
 
             let startApplication: boolean = tl.getBoolInput('startApplication', false);
             let installOptions: string = tl.getInput('installOptions', false) || '';
-            command = `AdminApp.install('${contentFile}', '[-appname ${appName} -node ${nodeName} -server ${appServerName} -cell ${cellName} -MapWebModToVH [["${webModule}" "${uri}" "${virtualHost}"]] -contextroot ${contextRoot} ${installOptions}]'); AdminConfig.save(); `;
-            if (startApplication) {
-                let startAppCommmand: string = `appManager = AdminControl.queryNames('cell=${cellName},node=${nodeName},type=ApplicationManager,process=${appServerName},*'); AdminControl.invoke(appManager, 'startApplication', '${appName}');`;
-                command += startAppCommmand;
+            let topologyType: string = tl.getInput('topologyType', true);
+
+            if (topologyType === 'singleServer') {
+                let nodeName: string = tl.getInput('nodeName', false);
+                let appServerName: string = tl.getInput('appServerName', false);
+                let cellName: string = tl.getInput('cellName', false);
+                command = `AdminApp.install('${contentFile}', '[-appname ${appName} -node ${nodeName} -server ${appServerName} -cell ${cellName} -MapWebModToVH [["${webModule}" "${uri}" "${virtualHost}"]] -contextroot ${contextRoot} ${installOptions}]'); AdminConfig.save(); `;
+                if (startApplication) {
+                    let startAppCommmand: string = `appManager = AdminControl.queryNames('cell=${cellName},node=${nodeName},type=ApplicationManager,process=${appServerName},*'); AdminControl.invoke(appManager, 'startApplication', '${appName}');`;
+                    command += startAppCommmand;
+                }
+            } else if (topologyType === 'cluster') {
+                let clusterName: string = tl.getInput('clusterName', false);
+                command = `AdminApp.install('${contentFile}', '[-appname ${appName} -cluster ${clusterName} -MapWebModToVH [["${webModule}" "${uri}" "${virtualHost}"]] -contextroot ${contextRoot} ${installOptions}]'); AdminConfig.save(); `;
+                if (startApplication) {
+                    let startAppCommmand: string = `AdminNodeManagement.syncActiveNodes(); AdminApplication.startApplicationOnCluster('${appName}', '${clusterName}');`;
+                    command += startAppCommmand;
+                }
             }
         } else {
             tl.debug('update existing application');
@@ -169,7 +178,6 @@ async function run() {
         wsadmin = setConnectionSpec(wsadmin);
         wsadmin.arg(['-c', command]);
         await wsadmin.exec();
-        tl.setResult(tl.TaskResult.Succeeded, tl.loc('SuccessfullyPublished', appName));
 
     } catch (err) {
         tl.setResult(tl.TaskResult.Failed, err);
