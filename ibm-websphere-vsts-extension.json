@@ -2,8 +2,8 @@
     "manifestVersion": 1,
     "id": "ibm-websphere",
     "name": "IBM WebSphere",
-    "version": "1.114.0",
-    "publisher": "xzhe",
+    "version": "1.114.2",
+    "publisher": "ms-vsts",
     "description": "",
     "public": false,
     "categories": [
@@ -44,7 +44,7 @@
     },
     "files": [
         {
-            "path": "_build/Tasks/IBMWebsphere"
+            "path": "_build/Tasks/IbmWebSphere"
         },
         {
             "path": "images",
@@ -58,7 +58,7 @@
     "contributions": [
         {
             "id": "ibm-websphere-endpoint-type",
-            "description": "Service Endpoint for IBM Websphere.",
+            "description": "Service Endpoint for IBM WebSphere.",
             "type": "ms.vss-endpoint.service-endpoint-type",
             "targets": [
                 "ms.vss-endpoint.endpoint-types"
@@ -100,7 +100,7 @@
                     {
                         "id": "ipaddress",
                         "name": "Host Address",
-                        "description": "The host name or IP address of the computer on which the Websphere is running.",
+                        "description": "The host name or IP address of the computer on which WebSphere is running.",
                         "inputMode": "textbox",
                         "isConfidential": false,
                         "validation": {
@@ -125,13 +125,13 @@
             }
         },
         {
-            "id": "ibm-webshere",
+            "id": "ibm-websphere",
             "type": "ms.vss-distributed-task.task",
             "targets": [
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "_build/Tasks/IBMWebsphere"
+                "name": "_build/Tasks/IbmWebSphere"
             }
         }
     ]

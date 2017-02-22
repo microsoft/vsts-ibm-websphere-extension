@@ -1,8 +1,8 @@
 {
     "id": "45EEFADD-E59D-43CC-84FF-17B7FCF1FB2E",
-    "name": "IBMWebsphere",
-    "friendlyName": "IBM WebSphere Deployment Task",
-    "description": "Deploy application file to IBM WebSphere.",
+    "name": "IbmWebSphere",
+    "friendlyName": "IBM WebSphere Deployment",
+    "description": "Deploy applications to IBM WebSphere.",
     "author": "Microsoft Corporation",
     "category": "Deploy",
     "visibility": [
@@ -15,7 +15,7 @@
     "version": {
         "Major": "1",
         "Minor": "114",
-        "Patch": "0"
+        "Patch": "2"
     },
     "minimumAgentVersion": "1.95.3",
     "instanceNameFormat": "Deploy $(appPath) to IBM WebSphere.",
@@ -32,7 +32,7 @@
         },
         {
             "name": "advanced",
-            "displayName": "Advanced Depoyment Options",
+            "displayName": "Advanced Deployment Options",
             "isExpanded": false
         }
     ],
@@ -50,13 +50,13 @@
             }
         },
         {
-            "name": "websphereEndpoint",
+            "name": "webSphereEndpoint",
             "type": "connectedService:ibmwebsphereendpoint",
-            "label": "Websphere Endpoint",
+            "label": "WebSphere Endpoint",
             "groupName": "connectionSpec",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "Service endpoint for Websphere.",
+            "helpMarkDown": "Service endpoint for WebSphere.",
             "visibleRule": "connType = serviceEndpoint"
         },
         {
@@ -84,7 +84,7 @@
             "defaultValue": "",
             "required": true,
             "groupName": "connectionSpec",
-            "helpMarkDown": "The host name or IP address of the computer on which the Websphere is running. In the Network Deployment (ND) environemnt, it should be the address of management node",
+            "helpMarkDown": "The host name or IP address of the computer on which WebSphere is running. In the Network Deployment (ND) environemnt, it should be the address of the management node.",
             "visibleRule": "connType = address"
         },
         {
@@ -94,7 +94,7 @@
             "defaultValue": "8879",
             "required": true,
             "groupName": "connectionSpec",
-            "helpMarkDown": "The SOAF port on which the wasadmin commmand line connects to manager / admin node.",
+            "helpMarkDown": "The SOAP port on which the wasadmin commmand line connects to manager / admin node.",
             "visibleRule": "connType = address"
         },
         {
@@ -104,7 +104,7 @@
             "groupName": "deployTask",
             "defaultValue": "",
             "required": true,
-            "helpMarkDown": "This is the applicatio name shown under the Webspherer Enterprise Applications."
+            "helpMarkDown": "This is the application name shown under the WebSphere Enterprise Applications."
         },
         {
             "name": "contentPath",
@@ -122,7 +122,7 @@
             "defaultValue": true,
             "required": true,
             "groupName": "deployTask",
-            "helpMarkDown": "Check this to install application if it does not exist in the target application server."
+            "helpMarkDown": "Check this to install application if it does not exist on the target application server."
         },
         {
             "name": "nodeName",
@@ -171,17 +171,17 @@
             "groupName": "deployTask",
             "defaultValue": "",
             "required": false,
-            "helpMarkDown": "This is the web module of the applicatio, which is usually defined in the WEB-INF/web.xml.",
+            "helpMarkDown": "This is the web module of the application, which is usually defined in the WEB-INF/web.xml.",
             "visibleRule": "installApplicationIfNotExist = true"
         },
         {
             "name": "virtualHost",
             "type": "string",
-            "label": "Virtual hosts",
+            "label": "Virtual Host",
             "groupName": "deployTask",
             "defaultValue": "default_host",
             "required": false,
-            "helpMarkDown": "This is the virtual hosts for applications.",
+            "helpMarkDown": "This is the virtual host for applications.",
             "visibleRule": "installApplicationIfNotExist = true"
         },
         {
@@ -234,6 +234,6 @@
         "NotFoundApp": "Not found app %s, install.",
         "FoundApp": "Found existing app %s, update.",
         "ExtractInfo": "Automatically extract Web Module: %s, Virtual hosts: %s, URI: %s.",
-        "SuccessfullyPublished": "Successfully install / update application file to websphere application server."
+        "SuccessfullyPublished": "Successfully installed / updated the application on the WebSphere application server."
     }
 }

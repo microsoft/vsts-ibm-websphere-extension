@@ -32,7 +32,7 @@ function findFile(filePath: string): string {
     return paths[0];
 }
 
-// Get and set websphere connection spec variables
+// Get and set WebSphere connection spec variables
 function setConnectionSpec(tr: ToolRunner): ToolRunner {
     let connType: string = tl.getInput('connType', true);
     if (connType === 'address') {
@@ -74,6 +74,22 @@ function setupIntegrationNodeSpec(tr: ToolRunner, ipAddress: string, port: strin
         }
 }
 
+// Determine if the application exists. If it exists, update; otherwise install.
+function checkIfApplicationExist(wasCommand: string, appName: string): boolean {
+        let wsadminFind: ToolRunner = tl.tool(tl.which(wasCommand, true));
+        wsadminFind = setConnectionSpec(wsadminFind);
+        let findAppCommand = `AdminConfig.getid('/Deployment:${appName}/');`;
+        wsadminFind.arg(['-c', findAppCommand]);
+        let findApp: IExecResult = wsadminFind.execSync();
+        let appNotExist: boolean = findApp.stdout.indexOf(appName) === -1;
+        if (appNotExist) {
+            console.log(tl.loc('NotFoundApp', appName));
+        } else {
+            console.log(tl.loc('FoundApp', appName));
+        }
+        return appNotExist;
+}
+
 async function run() {
     try {
         tl.setResourcePath(path.join(__dirname, 'task.json'));
@@ -85,25 +101,13 @@ async function run() {
         }
         tl.debug('input content file: ' + contentFile);
         let installApplicationIfNotExist: boolean = tl.getBoolInput('installApplicationIfNotExist', true);
-        let wasCommnad: string;
+        let wasCommand: string;
         if (os.type().match(/^Win/)) {
-            wasCommnad = 'wsadmin';
+            wasCommand = 'wsadmin';
         } else {
-            wasCommnad = 'wsadmin.sh';
+            wasCommand = 'wsadmin.sh';
         }
-
-        // Determine if the application exists. If it exists, update; otherwise install.
-        let wsadminFind: ToolRunner = tl.tool(tl.which(wasCommnad, true));
-        wsadminFind = setConnectionSpec(wsadminFind);
-        let findAppCommand = `AdminConfig.getid('/Deployment:${appName}/');`;
-        wsadminFind.arg(['-c', findAppCommand]);
-        let findApp: IExecResult = wsadminFind.execSync();
-        let appNotExist: boolean = findApp.stdout.indexOf(appName) === -1;
-        if (appNotExist) {
-            console.log(tl.loc('NotFoundApp', appName));
-        } else {
-            console.log(tl.loc('FoundApp', appName));
-        }
+        let appNotExist: boolean = checkIfApplicationExist(wasCommand, appName);
 
         // Prepare and run the install / update wsadmin command.
         let command: string;
@@ -120,10 +124,12 @@ async function run() {
             let virtualHost: string = tl.getInput('virtualHost', false);
             let uri: string = tl.getInput('uri', false);
             let contextRoot: string = tl.getInput('contextRoot', false) || ('/' + appName);
+            tl.debug('contextRoot: ' + contextRoot);
 
-            // automatically extract web module, virtual host, and uri informatio from the application file.
+            // automatically extract web module, virtual host, and URI information from the application file.
             if (!webModule || !virtualHost || !uri) {
-                let wsadminExtract: ToolRunner = tl.tool(tl.which(wasCommnad, true));
+                tl.debug('Extracting information from the application file.');
+                let wsadminExtract: ToolRunner = tl.tool(tl.which(wasCommand, true));
                 wsadminExtract = setConnectionSpec(wsadminExtract);
                 let extractAppCommand = `AdminApp.taskInfo('${contentFile}', 'MapWebModToVH');`;
                 wsadminExtract.arg(['-c', extractAppCommand]);
@@ -135,12 +141,15 @@ async function run() {
                 if (!webModule) {
                     webModule = autoWebModule;
                 }
+                tl.debug('using webModule: ' + webModule);
                 if (!virtualHost) {
                     virtualHost = autoVirtualHost;
                 }
+                tl.debug('using virtualHost: ' + virtualHost);
                 if (!uri) {
                     uri = autoUri;
                 }
+                tl.debug('using URI: ' + uri);
             }
 
             let startApplication: boolean = tl.getBoolInput('startApplication', false);
@@ -156,7 +165,7 @@ async function run() {
             command = `AdminApp.update('${appName}', 'app', '[-operation update -contents ${contentFile} ${updateOptions}]');  AdminConfig.save();`;
         }
 
-        let wsadmin: ToolRunner = tl.tool(tl.which(wasCommnad, true));
+        let wsadmin: ToolRunner = tl.tool(tl.which(wasCommand, true));
         wsadmin = setConnectionSpec(wsadmin);
         wsadmin.arg(['-c', command]);
         await wsadmin.exec();

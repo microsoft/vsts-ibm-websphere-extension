@@ -1,20 +1,20 @@
 <table style="width: 100%; border-style: none;"><tr>
 <td width="140px" style="text-align: center;"><img src="websphere_icon.png" style="max-width:100%" /></td>
 <td><strong>Visual Studio Team Services Extension for IBM WebSphere</strong><br />
-<i>Provides deployment tasks that automatically install/update WebSpherer enterprise applications in WebSphere application servers.</i><br />
+<i>Provides deployment tasks that automatically install/update WebSphere enterprise applications in WebSphere application servers.</i><br />
 <a href="https://marketplace.visualstudio.com/items/ms-vsclient.app-store">Install now!</a>
 </td>
 </tr></table>
 
 # Visual Studio Team Services Extension for IBM WebSphere
 
-This extension contains a deployment tasks which allow you to automate the installation and update of WebSpherer enterprise applications to WebSphere application servers. This extension installs the following components:
+This extension contains a deployment tasks which allow you to automate the installation and update of WebSphere enterprise applications to WebSphere application servers. This extension installs the following components:
 * A service endpoint for connecting to IBM WebSphere on Visual Studio Team Services and Team Foundation Server 2017.
-* A build task to install / update WebSpherer enterprise applications on WebSphere application servers.
+* A build task to install / update WebSphere enterprise applications on WebSphere application servers.
 
 ## Prerequisites
 
-* In order to automate the installation and update of WebSpherer enterprise applications to WebSphere application servers, the build agent must have access to the 'wsadmin' commands. The build taks mainly runs 'wsadmin' to perform
+* In order to automate the installation and update of WebSphere enterprise applications to WebSphere application servers, the build agent must have access to the 'wsadmin' commands. The build tasks mainly run 'wsadmin' to perform
 install / update task, so make sure it works at first. Please follow the IBM WebSphere document to setup the command environment. 
 There are three things you can check:
   * You can run wsadmin.sh(Linux) / wsadmin.bat(Windows) command from the command line. Add the IBM WebSphere bin/ directory in the PATH.

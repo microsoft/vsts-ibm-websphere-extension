@@ -1,6 +1,6 @@
 {
   "id": "45EEFADD-E59D-43CC-84FF-17B7FCF1FB2E",
-  "name": "IBMWebsphere",
+  "name": "IbmWebSphere",
   "friendlyName": "ms-resource:loc.friendlyName",
   "description": "ms-resource:loc.description",
   "author": "Microsoft Corporation",
@@ -15,7 +15,7 @@
   "version": {
     "Major": "1",
     "Minor": "114",
-    "Patch": "0"
+    "Patch": "2"
   },
   "minimumAgentVersion": "1.95.3",
   "instanceNameFormat": "ms-resource:loc.instanceNameFormat",
@@ -50,13 +50,13 @@
       }
     },
     {
-      "name": "websphereEndpoint",
+      "name": "webSphereEndpoint",
       "type": "connectedService:ibmwebsphereendpoint",
-      "label": "ms-resource:loc.input.label.websphereEndpoint",
+      "label": "ms-resource:loc.input.label.webSphereEndpoint",
       "groupName": "connectionSpec",
       "defaultValue": "",
       "required": true,
-      "helpMarkDown": "ms-resource:loc.input.help.websphereEndpoint",
+      "helpMarkDown": "ms-resource:loc.input.help.webSphereEndpoint",
       "visibleRule": "connType = serviceEndpoint"
     },
     {

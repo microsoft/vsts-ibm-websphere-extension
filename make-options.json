@@ -1,6 +1,6 @@
 {
     "tasks": [
-        "IBMWebsphere"
+        "IbmWebSphere"
     ],
     "taskResources": [
         "*.ps1",

@@ -1,125 +1,91 @@
-# Visual Studio Team Services Extension for the App Store
+# Visual Studio Team Services Extension for IBM WebSphere
 
-This extension contains a set of deployment tasks which allow you to automate the release and promotion of app updates to Apple's App Store from your CI environment. This can reduce the effort needed to keep your beta and production deployments up-to-date, since you can simply push changes to the configured source control branches, and let your automated build take care of the rest.
+This extension contains a deployment tasks which allow you to automate the installation and update of WebSphere enterprise applications to WebSphere application servers. This extension installs the following components:
+* A service endpoint for connecting to IBM WebSphere on Visual Studio Team Services and Team Foundation Server 2017.
+* A build task to install / update WebSphere enterprise applications on WebSphere application servers.
 
 ## Prerequisites
 
-* In order to automate the release of app updates to the App Store, you need to have manually released at least one version of the app beforehand.
-* The tasks install and use [fastlane](https://github.com/fastlane/fastlane) tools. Fastlane requires Ruby 2.0.0 or above and recommends having the latest Xcode command line tools installed on the MacOS computer. 
+* In order to automate the installation and update of WebSphere enterprise applications to WebSphere application servers, the build agent must have access to the 'wsadmin' commands. The build tasks mainly run 'wsadmin' to perform
+install / update task, so make sure it works at first. Please follow the IBM WebSphere document to setup the command environment. 
+There are three things you can check:
+  * You can run wsadmin.sh(Linux) / wsadmin.bat(Windows) command from the command line. Add the IBM WebSphere bin/ directory in the PATH.
+  * Try to run "wsadmin.sh -conntype SOAP -host your_websphere_hostname -port your_websphere_SOAP_port -username your_username -password your_password -c AdminControl.getNode\(\)" 
+  on the build agent. If it runs correctly, it will return the node name of IBM WebSphere Application servers.
+  * Sometimes you need to create a profile in your build agent to make the command line work.
 
 ## Quick Start
 
-Once you have created or retrieved credentials for your App Store account, then perform the following steps to automate releasing updates from a VSTS build or release definition:
+Once you have set up the WebSphere environemnt in both your server and build agent, perform the following steps to automate install / update WebSphere enterprise applications:
 
-1. Install the App Store extension from the [VSTS Marketplace](https://marketplace.visualstudio.com/items/ms-vsclient.app-store)
+1. Install the IBM WebSphere extension from the [VSTS Marketplace](https://marketplace.visualstudio.com/items/ms-vsclient.app-store).
 
-2. Go to your Visual Studio Team Services or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon) that is hooked up to your project's appropriate source repo
+2. Go to your Visual Studio Team Services or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon) that is hooked up to your project's appropriate source repository.
 
-3. Click **Add build step...** and select the neccessary tasks to generate your release assets (e.g. **Gulp**, **Cordova Build**)
+3. Click **Add build step...** and select the necessary tasks to generate your release assets (e.g. **Gulp**, **Cordova Build**).
 
-4. Click **Add build step...** and select **App Store Release** from the **Deploy** category
+4. Click **Add build step...** and select **IBM WebSphere ** from the **Deploy** category.
 
-5. Configure the **App Store Release** task with the desired authentication method, the generated IPA file path, and the desired release track.
+5. Configure the **IBM Websphere Deploment Task** task with the desired authentication method, and the install / update options.
 
-6. Click the **Queue Build** button or push a change to your configured repo in order to run the newly defined build pipeline
+6. Click the **Queue Build** button or push a change to your configured repository in order to run the newly defined build.
 
-7. Your app changes will now be automatically published to the App Store!
+7. Your Webpshere application changes will now be automatically installed / updated to the Websphere Application servers!
 
-## Configuring Your App Store Publisher Credentials
+## IBM WebSphere Application Deployment Task
 
-In addition to specifying your publisher credentials directly within each build task, you can also configure your credentials globally and refer to them within each build or release definition as needed. To do this, perform the following steps:
+1. Open your build definition and add the "IBM WebSphere Deployment" task.  The task can be found in the 'Deploy' section.
 
-1. Setup an Apple developer account (https://developer.apple.com/)
+    ![IBM WebSphere Deployment Task](images/websphere_task.PNG)
 
-2. Go into your Visual Studio Team Services or TFS project and click on the gear icon in the upper right corner
+1. Details of the install / update deployment task. Note that this task includes both install and update cases. If the target application does not exist, 
+it will install it; Otherwise it will update the target application.
 
-3. Click on the **Services** tab
+    ![IBM WebSphere Deployment Task Details](images/websphere_deploy_task_details.PNG)
 
-4. Click on **New Service Endpoint** and select **Apple App Store**
+    * Follow the __Setup Connection Options__ section below to setup connection to IBM WebSphere.
+    * Enter the application name.
+    * Enter the update content path. This should be the path points to the application file. Wildcards can be used, but the pattern must resolve to exactly one file.
+    * By default "Install Application If Not Exist" is checked. It will ask you more information about the applications. If the application does not exist, it will install this application. 
+    If the application already exists, it will update the application. The deployment task can detect and decide the right case for you. There is no need to add separate tasks for installation and update.
+    If you are certain that you only want to update an existing application, uncheck this option.
+    * Enter the target node name, target application server name, and the target cell name.
+    * Enter the context root information. If it leaves blank, the default context root will be "/your_application_name".
+    * Enter the Web Module, Virtual Host, and URI information. They are optional. We can extract these information automatically from the application file.
+    * By default "Start Application" is checked. It will start the application after the installation.
 
-5. Give the new endpoint a name and enter the credentials for the developer account you generated in step#1.
+1. If you are certain that the target application already exists in the WebSphere server, you can uncheck the "Install Application If Not Exist". The update task can be shown as follows:
 
-6. Select this endpoint via the name you chose in #5 whenever you add either the **App Store Release** or **App Store Promote** tasks to a build or release definition
+    ![IBM WebSphere Update-only Task Details](images/websphere_update_only_task_details.PNG)
 
-## Task Reference
+### Setup Connection Options
 
-In addition to the custom service endpoint, this extension also contributes the following build and release tasks:
+The tasks provide two options to connect to IBM WebSphere:
 
-* [App Store Release](#app-store-release) - Allows automating the release of updates to existing iOS TestFlight beta apps or production apps in the App Store.
+1. Connecting with an "IBM WebSphere" endpoint.
+    * This option is supported on Visual Studio Team Services and Team Foundation Server 2017.  On Team Foundation Server 2015, please use other options to connect.
 
-* [App Store Promote](#app-store-promote) - Allows automating the promotion of a previously submitted app from iTunes Connect to the App Store.
+    ![IBM websphere Endpoint](images/websphere_endpoint.PNG)
 
-### App Store Release
+    * __Connection name__: name used to identify this connection.
+    * __Hostname / IP Address__: IP address or the hostname of the computer on which the IBM WebSphere is running. The hostname must be resolvable by the build agent. Do not prefix with protocol names.
+    * __Port__: SOAP port of the target WebSphere.
+    * __Username and Password__: Administrative user name and password of the target WebSphere. Make you can use this pair to login the WebSphere console.
 
-Allows you to release updates to your iOS TestFlight beta app or production app on the App Store, and includes the following options:
+1. Manually enter credentials.
+    * The same fields from "IBM WebSphere" endpoint section are repeated within the task.
 
-![Release task](/images/release-task-with-advanced.png)
+## Support
+Support for this extension is provided on our [GitHub Issue Tracker](https://github.com/microsoft/vsts-ibm-websphere-extension/issues).  You
+can submit a [bug report](https://github.com/microsoft/vsts-ibm-websphere-extension/issues/new), a [feature request](https://github.com/microsoft/vsts-ibm-websphere-extension/issues/new)
+or participate in [discussions](https://github.com/microsoft/vsts-ibm-websphere-extension/issues).
 
-1. **Username and Password** or **Service Endpoint** - The credentials used to authenticate with the App Store. Credentials can be typed in directly or configured via a service endpoint that can be referenced from the task (via the `Service Endpoint` authentication method).
+## Contributing to the Extension
+See the [developer documentation](CONTRIBUTING.md) for details on how to contribute to this extension.
 
-2. **Bundle ID** *(String, Required)* - Unique app identifier (e.g. com.myapp.etc).
+## Code of Conduct
+This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
-3. **Binary Path** *(File path, Required)* - Path to the IPA file you want to publish to the specified track.
-
-#### Release Options
-
-**Track** *(String, Required)* - Release track to publish the binary to (e.g. `TestFlight`  or `Production` ).
-
-##### Release Options for TestFlight track
-
-1. **What to Test?** *(File path)* - Path to the file containing notes on what to test for this release.
-
-2. **Skip Build Processing Wait** *(Checkbox)* - Skip waiting for App Store to finish the build processing.
-   
-3. **Skip Submission** *(Checkbox)* - Upload a beta app without distributing to the testers.
-
-##### Release Options for Production track
-
-1. **Skip Binary Upload** *(Checkbox)* - Skip binary upload and only update metadata and screenshots.
-
-2. **Upload Metadata** *(Checkbox)* - Upload app metadata to the App Store (e.g. title, description, changelog).
-
-3. **Metadata Path** *(File path)* - Path to the metadata to publish. 
-
-4. **Upload Screenshots** *(Checkbox)* - Upload screenshots of the app to the App Store.
-
-5.  **Screenshots Path** *(File path)* - Path to the screenshots to publish. 
-
-6. **Submit for Review** *(Checkbox)* - Automatically submit the new version for review after the upload is completed.
-
-7. **Release Automatically** *(Checkbox)* - Automatically release the app once it is approved.
-
-#### Advanced Options
-
-1. **Team Id** *(String)* - The ID of the producing team. Only necessary when in multiple teams.
-
-2. **Team Name** *(String)* - The name of the producing team. Only necessary when in multiple teams.
-
-### App Store Promote
-
-Allows you to promote an app previously updated to iTunes Connect to the App Store, and includes the following options:
-
-![Promote task](/images/promote-task-with-advanced.png)
-
-1. **Username and Password** or **Service Endpoint** - The credentials used to authenticate with the App Store. Credentials can be typed in directly or configured via a service endpoint that can be referenced from the task (via the `Service Endpoint` authentication method).
-
-2. **Bundle ID** *(String, required)* - The unique identifier for the app to be promoted.
-
-3. **Choose Build** - `Latest` or `Specify build number`. By default the latest build will be submitted for review. 
-
-4. **Build Number** - Required if `Specify build number` option is selected in #3 above. The build number in iTunes Connect that you wish to submit for review.
-
-4. **Release Automatically** *(Checkbox)* - Check to automatically release the app once the approval process is completed.
-
-#### Advanced Options
-
-1. **Team Id** *(String)* - The ID of the producing team. Only necessary when in multiple teams.
-
-2. **Team Name** *(String)* - The name of the producing team. Only necessary when in multiple teams.
-
-## Contact Us
-
-[Report an issue](https://github.com/Microsoft/app-store-vsts-extension/issues)
-
-
-Apple and the Apple logo are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc.
+## Privacy Statement
+The [Microsoft Visual Studio Product Family Privacy Statement](http://go.microsoft.com/fwlink/?LinkId=528096&clcid=0x409)
+describes the privacy statement of this software.
