@@ -1,0 +1,263 @@
+{
+  "id": "45EEFADD-E59D-43CC-84FF-17B7FCF1FB2E",
+  "name": "IbmWebSphere",
+  "friendlyName": "ms-resource:loc.friendlyName",
+  "description": "ms-resource:loc.description",
+  "author": "Microsoft Corporation",
+  "category": "Deploy",
+  "visibility": [
+    "Build",
+    "Release"
+  ],
+  "demands": [
+    "websphere"
+  ],
+  "version": {
+    "Major": "1",
+    "Minor": "114",
+    "Patch": "10"
+  },
+  "minimumAgentVersion": "1.95.3",
+  "instanceNameFormat": "ms-resource:loc.instanceNameFormat",
+  "groups": [
+    {
+      "name": "connectionSpec",
+      "displayName": "ms-resource:loc.group.displayName.connectionSpec",
+      "isExpanded": true
+    },
+    {
+      "name": "deployTask",
+      "displayName": "ms-resource:loc.group.displayName.deployTask",
+      "isExpanded": true
+    },
+    {
+      "name": "advanced",
+      "displayName": "ms-resource:loc.group.displayName.advanced",
+      "isExpanded": false
+    }
+  ],
+  "inputs": [
+    {
+      "name": "connType",
+      "type": "pickList",
+      "label": "ms-resource:loc.input.label.connType",
+      "defaultValue": "serviceEndpoint",
+      "groupName": "connectionSpec",
+      "helpMarkDown": "",
+      "options": {
+        "serviceEndpoint": "Service Endpoint Connection",
+        "address": "Enter Connection Details"
+      }
+    },
+    {
+      "name": "webSphereEndpoint",
+      "type": "connectedService:ibmwebsphereendpoint",
+      "label": "ms-resource:loc.input.label.webSphereEndpoint",
+      "groupName": "connectionSpec",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "ms-resource:loc.input.help.webSphereEndpoint",
+      "visibleRule": "connType = serviceEndpoint"
+    },
+    {
+      "name": "username",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.username",
+      "defaultValue": "",
+      "required": false,
+      "groupName": "connectionSpec",
+      "visibleRule": "connType = address"
+    },
+    {
+      "name": "password",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.password",
+      "defaultValue": "",
+      "required": false,
+      "groupName": "connectionSpec",
+      "visibleRule": "connType = address"
+    },
+    {
+      "name": "ipAddress",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.ipAddress",
+      "defaultValue": "",
+      "required": true,
+      "groupName": "connectionSpec",
+      "helpMarkDown": "ms-resource:loc.input.help.ipAddress",
+      "visibleRule": "connType = address"
+    },
+    {
+      "name": "port",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.port",
+      "defaultValue": "8879",
+      "required": true,
+      "groupName": "connectionSpec",
+      "helpMarkDown": "ms-resource:loc.input.help.port",
+      "visibleRule": "connType = address"
+    },
+    {
+      "name": "appName",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.appName",
+      "groupName": "deployTask",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "ms-resource:loc.input.help.appName"
+    },
+    {
+      "name": "contentPath",
+      "type": "filePath",
+      "label": "ms-resource:loc.input.label.contentPath",
+      "defaultValue": "**/*.war",
+      "required": true,
+      "groupName": "deployTask",
+      "helpMarkDown": "ms-resource:loc.input.help.contentPath"
+    },
+    {
+      "name": "installApplicationIfNotExist",
+      "type": "boolean",
+      "label": "ms-resource:loc.input.label.installApplicationIfNotExist",
+      "defaultValue": true,
+      "required": true,
+      "groupName": "deployTask",
+      "helpMarkDown": "ms-resource:loc.input.help.installApplicationIfNotExist"
+    },
+    {
+      "name": "topologyType",
+      "type": "pickList",
+      "label": "ms-resource:loc.input.label.topologyType",
+      "defaultValue": "singleServer",
+      "groupName": "deployTask",
+      "helpMarkDown": "ms-resource:loc.input.help.topologyType",
+      "options": {
+        "singleServer": "Install on a single server",
+        "cluster": "Install on a cluster"
+      },
+      "visibleRule": "installApplicationIfNotExist = true"
+    },
+    {
+      "name": "clusterName",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.clusterName",
+      "groupName": "deployTask",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "ms-resource:loc.input.help.clusterName",
+      "visibleRule": "installApplicationIfNotExist = true && topologyType = cluster"
+    },
+    {
+      "name": "nodeName",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.nodeName",
+      "groupName": "deployTask",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "ms-resource:loc.input.help.nodeName",
+      "visibleRule": "installApplicationIfNotExist = true && topologyType = singleServer"
+    },
+    {
+      "name": "appServerName",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.appServerName",
+      "groupName": "deployTask",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "ms-resource:loc.input.help.appServerName",
+      "visibleRule": "installApplicationIfNotExist = true && topologyType = singleServer"
+    },
+    {
+      "name": "cellName",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.cellName",
+      "groupName": "deployTask",
+      "defaultValue": "",
+      "required": true,
+      "helpMarkDown": "ms-resource:loc.input.help.cellName",
+      "visibleRule": "installApplicationIfNotExist = true && topologyType = singleServer"
+    },
+    {
+      "name": "contextRoot",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.contextRoot",
+      "groupName": "deployTask",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "ms-resource:loc.input.help.contextRoot",
+      "visibleRule": "installApplicationIfNotExist = true"
+    },
+    {
+      "name": "webModule",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.webModule",
+      "groupName": "deployTask",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "ms-resource:loc.input.help.webModule",
+      "visibleRule": "installApplicationIfNotExist = true"
+    },
+    {
+      "name": "virtualHost",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.virtualHost",
+      "groupName": "deployTask",
+      "defaultValue": "default_host",
+      "required": false,
+      "helpMarkDown": "ms-resource:loc.input.help.virtualHost",
+      "visibleRule": "installApplicationIfNotExist = true"
+    },
+    {
+      "name": "uri",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.uri",
+      "groupName": "deployTask",
+      "defaultValue": "",
+      "required": false,
+      "helpMarkDown": "ms-resource:loc.input.help.uri",
+      "visibleRule": "installApplicationIfNotExist = true"
+    },
+    {
+      "name": "startApplication",
+      "type": "boolean",
+      "label": "ms-resource:loc.input.label.startApplication",
+      "groupName": "deployTask",
+      "defaultValue": false,
+      "required": false,
+      "helpMarkDown": "ms-resource:loc.input.help.startApplication",
+      "visibleRule": "installApplicationIfNotExist = true"
+    },
+    {
+      "name": "installOptions",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.installOptions",
+      "groupName": "advanced",
+      "required": false,
+      "helpMarkDown": "ms-resource:loc.input.help.installOptions"
+    },
+    {
+      "name": "updateOptions",
+      "type": "string",
+      "label": "ms-resource:loc.input.label.updateOptions",
+      "groupName": "advanced",
+      "required": false,
+      "helpMarkDown": "ms-resource:loc.input.help.updateOptions"
+    }
+  ],
+  "execution": {
+    "Node": {
+      "target": "websphere-deploy.js",
+      "argumentFormat": ""
+    }
+  },
+  "messages": {
+    "InvalidFile": "ms-resource:loc.messages.InvalidFile",
+    "NoFilesFound": "ms-resource:loc.messages.NoFilesFound",
+    "MultipleFilesFound": "ms-resource:loc.messages.MultipleFilesFound",
+    "NotFoundApp": "ms-resource:loc.messages.NotFoundApp",
+    "FoundApp": "ms-resource:loc.messages.FoundApp",
+    "ExtractInfo": "ms-resource:loc.messages.ExtractInfo",
+    "SuccessfullyPublished": "ms-resource:loc.messages.SuccessfullyPublished"
+  },
+  "helpMarkDown": "ms-resource:loc.helpMarkDown"
+}

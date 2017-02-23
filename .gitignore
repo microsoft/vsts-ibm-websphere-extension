@@ -250,3 +250,20 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+# get from other projects
+_temp/
+_results/
+_build/
+
+gulp-tsc-tmp-*
+.gulp-tsc-tmp-*
+
+[Tt]asks/**/*.js
+[Tt]ests/**/*.js
+
+.vscode
+.taskkey
+
+*.vsix
+*.zip

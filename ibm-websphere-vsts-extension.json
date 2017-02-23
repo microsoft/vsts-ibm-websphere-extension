@@ -1,0 +1,138 @@
+{
+    "manifestVersion": 1,
+    "id": "ibm-websphere",
+    "name": "IBM WebSphere",
+    "version": "1.114.10",
+    "publisher": "ms-vsts",
+    "description": "",
+    "public": false,
+    "categories": [
+        "Build and release"
+    ],
+    "tags": [
+        "deploy",
+        "release",
+        "WebSphere",
+        "IBM"
+    ],
+    "targets": [
+        {
+            "id": "Microsoft.VisualStudio.Services"
+        }
+    ],
+    "icons": {
+        "default": "websphere_icon.png"
+    },
+    "visibility": [
+        "Build and release"
+    ],
+    "content": {
+        "details": {
+            "path": "docs/vsts-README.md"
+        },
+        "thirdpartynotice": {
+            "path": "ThirdPartyNotices.txt"
+        }
+    },
+    "links": {
+        "getstarted": {
+            "uri": "https://github.com/microsoft/vsts-ibm-websphere-extension"
+        },
+        "support": {
+            "uri": "https://github.com/microsoft/vsts-ibm-websphere-extension/issues"
+        }
+    },
+    "files": [
+        {
+            "path": "_build/Tasks/IbmWebSphere"
+        },
+        {
+            "path": "images",
+            "addressable": true
+        }
+    ],
+    "scope": [
+        "vso.build",
+        "vso.serviceendpoint"
+    ],
+    "contributions": [
+        {
+            "id": "ibm-websphere-endpoint-type",
+            "description": "Service Endpoint for IBM WebSphere.",
+            "type": "ms.vss-endpoint.service-endpoint-type",
+            "targets": [
+                "ms.vss-endpoint.endpoint-types"
+            ],
+            "properties": {
+                "name": "ibmwebsphereendpoint",
+                "displayName": "IBM WebSphere",
+                "url": "https://marketplace.visualstudio.com/", 
+                "authenticationSchemes": [
+                    {
+                        "type": "ms.vss-endpoint.endpoint-auth-scheme-basic",
+                        "inputDescriptors": [
+                            {
+                                "id": "username",
+                                "name": "Username",
+                                "inputMode": "textbox",
+                                "isConfidential": false,
+                                "validation": {
+                                    "isRequired": true,
+                                    "dataType": "string",
+                                    "maxLength": 300
+                                }
+                            },
+                            {
+                                "id": "password",
+                                "name": "Password",
+                                "inputMode": "textbox",
+                                "isConfidential": true,
+                                "validation": {
+                                    "isRequired": true,
+                                    "dataType": "string",
+                                    "maxLength": 300
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "inputDescriptors": [
+                    {
+                        "id": "ipaddress",
+                        "name": "Host Address",
+                        "description": "The host name or IP address of the computer on which WebSphere is running.",
+                        "inputMode": "textbox",
+                        "isConfidential": false,
+                        "validation": {
+                            "isRequired": true,
+                            "dataType": "string",
+                            "maxLength": 300
+                        }
+                    },
+                    {
+                        "id": "port",
+                        "name": "Port",
+                        "inputMode": "textbox",
+                        "isConfidential": false,
+                        "defaultValue": 8879,
+                        "validation": {
+                            "isRequired": true,
+                            "dataType": "string",
+                            "maxLength": 24
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "id": "ibm-websphere",
+            "type": "ms.vss-distributed-task.task",
+            "targets": [
+                "ms.vss-distributed-task.tasks"
+            ],
+            "properties": {
+                "name": "_build/Tasks/IbmWebSphere"
+            }
+        }
+    ]
+}
