@@ -1,14 +1,14 @@
 <table style="width: 100%; border-style: none;"><tr>
 <td width="140px" style="text-align: center;"><img src="websphere_icon.png" style="max-width:100%" /></td>
 <td><strong>Visual Studio Team Services Extension for IBM WebSphere Application Server</strong><br />
-<i>Provides deployment task that automatically install/update applications in WebSphere Application Servers.</i><br />
+<i>Provides deployment task that automatically installs/updates applications in WebSphere Application Servers.</i><br />
 <a href="https://marketplace.visualstudio.com/items/ms-vsts.ibm-webshepere">Install now!</a>
 </td>
 </tr></table>
 
 # Visual Studio Team Services Extension for IBM WebSphere Application Server
 
-This extension contains a deployment task which allow you to automate the installation and update of applications to IBM WebSphere Application Servers. This extension installs the following components:
+This extension contains a deployment task which allows you to automate the installation and update of applications to IBM WebSphere Application Servers. This extension installs the following components:
 * A service endpoint for connecting to IBM WebSphere Application Server on Visual Studio Team Services and Team Foundation Server 2017.
 * A build task to install / update applications on WebSphere Application Servers.
 
@@ -25,7 +25,7 @@ To check if the environment is setup correctly:
 
 Once you have set up the WebSphere environemnt, perform the following steps to automate the deployment of applications to WebSphere Application Servers:
 
-1. Install the [IBM WebSphere extension](https://marketplace.visualstudio.com/items/ms-vsts.ibm-webshepere) from the VSTS Marketplace.
+1. Install the [IBM WebSphere extension](https://marketplace.visualstudio.com/items/ms-vsts.ibm-webshepere) from the Team Services Marketplace.
 
 2. Go to your Visual Studio Team Services or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon) that is hooked up to your project's appropriate source repository.
 
@@ -56,7 +56,7 @@ it will install it; Otherwise it will update the target application.
     * By default "Install Application If Not Exist" is checked. If the application does not exist, it will be first installed.
     * Enter the target cell, node, and application server name if this application is expected to be installed for the first time.
     * Enter the optional context root information. If left blank, the default context root will be _"/your_application_name"_.
-    * Enter the optional Web Module, Virtual Host, and URI information. If left blank, the task will attempt to extract these information automatically from the application file.
+    * Enter the optional Web Module, Virtual Host, and URI information. If left blank, the task will attempt to extract this information automatically from the application file.
     * By default "Start Application" is checked. It will start the application after the installation.
 
 1. If you are certain that the target application already exists in the IBM WebSphere Application Server, you can uncheck the "Install Application If Not Exist". The task will then hide fields that are only relevant to installation:
