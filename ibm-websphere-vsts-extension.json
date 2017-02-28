@@ -29,9 +29,6 @@
     "content": {
         "details": {
             "path": "docs/vsts-README.md"
-        },
-        "thirdpartynotice": {
-            "path": "ThirdPartyNotices.txt"
         }
     },
     "links": {
