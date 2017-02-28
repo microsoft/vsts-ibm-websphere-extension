@@ -14,7 +14,7 @@ import * as ttm from 'vsts-task-lib/mock-test';
 describe('IBM Websphere L0 Suite', function () {
     /* tslint:disable:no-empty */
     before(() => {
-        process.env['TASK_TEST_TRACE'] = 1;
+        //process.env['TASK_TEST_TRACE'] = 1;
     });
 
     after(() => {

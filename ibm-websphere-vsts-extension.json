@@ -41,7 +41,7 @@
     },
     "files": [
         {
-            "path": "_build/Tasks/IbmWebSphere"
+            "path": "_build/Tasks/IBMWebSphere"
         },
         {
             "path": "images",
@@ -128,7 +128,7 @@
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "_build/Tasks/IbmWebSphere"
+                "name": "_build/Tasks/IBMWebSphere"
             }
         }
     ]
