@@ -1,44 +1,43 @@
 <table style="width: 100%; border-style: none;"><tr>
 <td width="140px" style="text-align: center;"><img src="websphere_icon.png" style="max-width:100%" /></td>
-<td><strong>Visual Studio Team Services Extension for IBM WebSphere</strong><br />
-<i>Provides deployment tasks that automatically install/update WebSphere enterprise applications in WebSphere application servers.</i><br />
-<a href="https://marketplace.visualstudio.com/items/ms-vsclient.app-store">Install now!</a>
+<td><strong>Visual Studio Team Services Extension for IBM WebSphere Application Server</strong><br />
+<i>Provides deployment task that automatically install/update applications in WebSphere Application Servers.</i><br />
+<a href="https://marketplace.visualstudio.com/items/ms-vsts.ibm-webshepere">Install now!</a>
 </td>
 </tr></table>
 
-# Visual Studio Team Services Extension for IBM WebSphere
+# Visual Studio Team Services Extension for IBM WebSphere Application Server
 
-This extension contains a deployment tasks which allow you to automate the installation and update of WebSphere enterprise applications to WebSphere application servers. This extension installs the following components:
-* A service endpoint for connecting to IBM WebSphere on Visual Studio Team Services and Team Foundation Server 2017.
-* A build task to install / update WebSphere enterprise applications on WebSphere application servers.
+This extension contains a deployment task which allow you to automate the installation and update of applications to IBM WebSphere Application Servers. This extension installs the following components:
+* A service endpoint for connecting to IBM WebSphere Application Server on Visual Studio Team Services and Team Foundation Server 2017.
+* A build task to install / update applications on WebSphere Application Servers.
 
 ## Prerequisites
 
-* In order to automate the installation and update of WebSphere enterprise applications to WebSphere application servers, the build agent must have access to the 'wsadmin' commands. The build tasks mainly run 'wsadmin' to perform
-install / update task, so make sure it works at first. Please follow the IBM WebSphere document to setup the command environment. 
-There are three things you can check:
-  * You can run wsadmin.sh(Linux) / wsadmin.bat(Windows) command from the command line. Add the IBM WebSphere bin/ directory in the PATH.
-  * Try to run "wsadmin.sh -conntype SOAP -host your_websphere_hostname -port your_websphere_SOAP_port -username your_username -password your_password -c AdminControl.getNode\(\)" 
-  on the build agent. If it runs correctly, it will return the node name of IBM WebSphere Application servers.
-  * Sometimes you need to create a profile in your build agent to make the command line work.
+* In order to automate the installation and update of applications to WebSphere Application Servers, the build agent must have access to the 'wsadmin' commands. Please follow the IBM WebSphere document to setup the command environment.
+To check if the environment is setup correctly:
+  * You can run wsadmin.sh(Linux) / wsadmin.bat(Windows) command from the terminal or command line respectively. Make sure IBM WebSphere _bin/_ directory is in the PATH.
+  * Execute "wsadmin.sh -conntype SOAP -host <your_websphere_hostname> -port <your_websphere_SOAP_port> -username <your_username> -password <your_password> -c AdminControl.getNode\(\)"
+  on the build agent. It should return the node name of the IBM WebSphere Application Server.
+  * You may need to create a profile in your build agent to make the command line work.
 
 ## Quick Start
 
-Once you have set up the WebSphere environemnt in both your server and build agent, perform the following steps to automate install / update WebSphere enterprise applications:
+Once you have set up the WebSphere environemnt, perform the following steps to automate the deployment of applications to WebSphere Application Servers:
 
-1. Install the IBM WebSphere extension from the [VSTS Marketplace](https://marketplace.visualstudio.com/items/ms-vsclient.app-store).
+1. Install the [IBM WebSphere extension](https://marketplace.visualstudio.com/items/ms-vsts.ibm-webshepere) from the VSTS Marketplace.
 
 2. Go to your Visual Studio Team Services or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon) that is hooked up to your project's appropriate source repository.
 
-3. Click **Add build step...** and select the necessary tasks to generate your release assets (e.g. **Gulp**, **Cordova Build**).
+3. Click **Add build step...** and select the necessary tasks to generate your release assets (e.g. **Maven**, **Gradle**).
 
-4. Click **Add build step...** and select **IBM WebSphere ** from the **Deploy** category.
+4. Click **Add build step...** and select **IBM WebSphere Deployment** task from the **Deploy** category.
 
-5. Configure the **IBM Websphere Deploment Task** task with the desired authentication method, and the install / update options.
+5. Configure the **IBM Websphere Deploment** task with the desired authentication method, and the install / update options.
 
 6. Click the **Queue Build** button or push a change to your configured repository in order to run the newly defined build.
 
-7. Your Webpshere application changes will now be automatically installed / updated to the Websphere Application servers!
+7. Your Webpshere application changes will now be automatically installed / updated to the WebSphere Application Servers!
 
 ## IBM WebSphere Application Deployment Task
 
@@ -46,7 +45,7 @@ Once you have set up the WebSphere environemnt in both your server and build age
 
     ![IBM WebSphere Deployment Task](images/websphere_task.PNG)
 
-1. Details of the install / update deployment task. Note that this task includes both install and update cases. If the target application does not exist, 
+1. Details of the install / update deployment task. Note that this task includes both install and update cases. If the target application does not exist,
 it will install it; Otherwise it will update the target application.
 
     ![IBM WebSphere Deployment Task Details](images/websphere_deploy_task_details.PNG)
@@ -54,21 +53,19 @@ it will install it; Otherwise it will update the target application.
     * Setup [Connection Options](#setup-connection-options).
     * Enter the application name.
     * Enter the update content path. This should be the path points to the application file. Wildcards can be used, but the pattern must resolve to exactly one file.
-    * By default "Install Application If Not Exist" is checked. It will ask you more information about the applications. If the application does not exist, it will install this application. 
-    If the application already exists, it will update the application. The deployment task can detect and decide the right case for you. There is no need to add separate tasks for installation and update.
-    If you are certain that you only want to update an existing application, uncheck this option.
-    * Enter the target node name, target application server name, and the target cell name.
-    * Enter the context root information. If it leaves blank, the default context root will be "/your_application_name".
-    * Enter the Web Module, Virtual Host, and URI information. They are optional. We can extract these information automatically from the application file.
+    * By default "Install Application If Not Exist" is checked. If the application does not exist, it will be first installed.
+    * Enter the target cell, node, and application server name if this application is expected to be installed for the first time.
+    * Enter the optional context root information. If left blank, the default context root will be _"/your_application_name"_.
+    * Enter the optional Web Module, Virtual Host, and URI information. If left blank, the task will attempt to extract these information automatically from the application file.
     * By default "Start Application" is checked. It will start the application after the installation.
 
-1. If you are certain that the target application already exists in the WebSphere server, you can uncheck the "Install Application If Not Exist". The update task can be shown as follows:
+1. If you are certain that the target application already exists in the IBM WebSphere Application Server, you can uncheck the "Install Application If Not Exist". The task will then hide fields that are only relevant to installation:
 
     ![IBM WebSphere Update-only Task Details](images/websphere_update_only_task_details.PNG)
 
 ### Setup Connection Options
 
-The tasks provide two options to connect to IBM WebSphere:
+The tasks provide two options to connect to IBM WebSphere Application Server:
 
 1. Connecting with an "IBM WebSphere" endpoint.
     * This option is supported on Visual Studio Team Services and Team Foundation Server 2017.  On Team Foundation Server 2015, please use other options to connect.
