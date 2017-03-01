@@ -1,6 +1,6 @@
 {
   "id": "45EEFADD-E59D-43CC-84FF-17B7FCF1FB2E",
-  "name": "IbmWebSphere",
+  "name": "IBMWebSphere",
   "friendlyName": "ms-resource:loc.friendlyName",
   "description": "ms-resource:loc.description",
   "author": "Microsoft Corporation",
@@ -9,13 +9,11 @@
     "Build",
     "Release"
   ],
-  "demands": [
-    "websphere"
-  ],
+  "demands": [],
   "version": {
     "Major": "1",
     "Minor": "114",
-    "Patch": "10"
+    "Patch": "0"
   },
   "minimumAgentVersion": "1.95.3",
   "instanceNameFormat": "ms-resource:loc.instanceNameFormat",

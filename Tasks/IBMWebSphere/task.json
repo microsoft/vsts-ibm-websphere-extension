@@ -1,6 +1,6 @@
 {
     "id": "45EEFADD-E59D-43CC-84FF-17B7FCF1FB2E",
-    "name": "IbmWebSphere",
+    "name": "IBMWebSphere",
     "friendlyName": "IBM WebSphere Deployment",
     "description": "Deploy applications to IBM WebSphere.",
     "author": "Microsoft Corporation",
@@ -10,12 +10,11 @@
         "Release"
     ],
     "demands": [
-        "websphere"
     ],
     "version": {
         "Major": "1",
         "Minor": "114",
-        "Patch": "10"
+        "Patch": "0"
     },
     "minimumAgentVersion": "1.95.3",
     "instanceNameFormat": "Deploy $(appPath) to IBM WebSphere.",
