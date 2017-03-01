@@ -1,7 +1,7 @@
 <table style="width: 100%; border-style: none;"><tr>
 <td width="140px" style="text-align: center;"><img src="websphere_icon.png" style="max-width:100%" /></td>
 <td><strong>Visual Studio Team Services Extension for IBM WebSphere Application Server</strong><br />
-<i>Provides deployment task that automatically installs/updates applications in WebSphere Application Servers.</i><br />
+<i>Provides deployment task that automatically installs/updates enterprise applications in WebSphere Application Servers.</i><br />
 <a href="https://marketplace.visualstudio.com/items/ms-vsts.ibm-webshepere">Install now!</a>
 </td>
 </tr></table>
@@ -10,11 +10,11 @@
 
 This extension contains a deployment task which allows you to automate the installation and update of applications to IBM WebSphere Application Servers. This extension installs the following components:
 * A service endpoint for connecting to IBM WebSphere Application Server on Visual Studio Team Services and Team Foundation Server 2017.
-* A build task to install / update applications on WebSphere Application Servers.
+* A build task to install / update enterprise applications on WebSphere Application Servers.
 
 ## Prerequisites
 
-* In order to automate the installation and update of applications to WebSphere Application Servers, the build agent must have access to the 'wsadmin' commands. Please follow the IBM WebSphere document to setup the command environment.
+* In order to automate the installation and update of enterprise applications to WebSphere Application Servers, the build agent must have access to the 'wsadmin' commands. Please follow the IBM WebSphere document to setup the command environment.
 To check if the environment is setup correctly:
   * You can run wsadmin.sh(Linux) / wsadmin.bat(Windows) command from the terminal or command line respectively. Make sure IBM WebSphere _bin/_ directory is in the PATH.
   * Execute "wsadmin.sh -conntype SOAP -host <your_websphere_hostname> -port <your_websphere_SOAP_port> -username <your_username> -password <your_password> -c AdminControl.getNode\(\)"
