@@ -1,7 +1,7 @@
 {
   "loc.friendlyName": "IBM WebSphere Deployment",
   "loc.description": "Deploy applications to IBM WebSphere.",
-  "loc.instanceNameFormat": "Deploy $(appPath) to IBM WebSphere.",
+  "loc.instanceNameFormat": "Deploy $(appPath) to IBM WebSphere",
   "loc.group.displayName.connectionSpec": "Connection Options",
   "loc.group.displayName.deployTask": "Install / Update Deployment Tasks",
   "loc.group.displayName.advanced": "Advanced Deployment Options",
