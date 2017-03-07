@@ -82,7 +82,7 @@
                             {
                                 "id": "password",
                                 "name": "Password",
-                                "inputMode": "textbox",
+                                "inputMode": "passwordbox",
                                 "isConfidential": true,
                                 "validation": {
                                     "isRequired": true,
