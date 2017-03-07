@@ -221,7 +221,7 @@
             "type": "boolean",
             "label": "Start Application",
             "groupName": "deployTask",
-            "defaultValue": false,
+            "defaultValue": true,
             "required": false,
             "helpMarkDown": "Check this to start application after its installation.",
             "visibleRule": "installApplicationIfNotExist = true"

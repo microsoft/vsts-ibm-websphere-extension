@@ -9,13 +9,12 @@ This extension contains a deployment task which allows you to automate the insta
 * In order to automate the installation and update of enterprise applications to WebSphere Application Servers, the build agent must have access to the 'wsadmin' commands. Please follow the IBM WebSphere document to setup the command environment.
 To check if the environment is setup correctly:
   * You can run wsadmin.sh(Linux) / wsadmin.bat(Windows) command from the terminal or command line respectively. Make sure IBM WebSphere _bin/_ directory is in the PATH.
-  * Execute "wsadmin.sh -conntype SOAP -host <your_websphere_hostname> -port <your_websphere_SOAP_port> -username <your_username> -password <your_password> -c AdminControl.getNode\(\)"
-  on the build agent. It should return the node name of the IBM WebSphere Application Server.
+  * Execute `wsadmin.sh -conntype SOAP -host <your_websphere_hostname> -port <your_websphere_SOAP_port> -username <your_username> -password <your_password> -c AdminControl.getNode\(\)` on the build agent. It should return the node name of the IBM WebSphere Application Server.
   * You may need to create a profile in your build agent to make the command line work.
 
 ## Quick Start
 
-Once you have set up the WebSphere environemnt, perform the following steps to automate the deployment of applications to WebSphere Application Servers:
+Once you have set up the WebSphere environemnt, perform the following steps to automate the deployment of enterprise applications to WebSphere Application Servers:
 
 1. Install the [IBM WebSphere extension](https://marketplace.visualstudio.com/items/ms-vsts.ibm-webshepere) from the Team Services Marketplace.
 
@@ -37,8 +36,7 @@ Once you have set up the WebSphere environemnt, perform the following steps to a
 
     ![IBM WebSphere Deployment Task](images/websphere_task.PNG)
 
-1. Details of the install / update deployment task. Note that this task includes both install and update cases. If the target application does not exist,
-it will install it; Otherwise it will update the target application.
+1. Details of the install / update deployment task. Note that this task includes both install and update cases. If the target application does not exist, it will install it; Otherwise it will update the target application.
 
     ![IBM WebSphere Deployment Task Details](images/websphere_deploy_task_details.PNG)
 
@@ -73,9 +71,7 @@ The tasks provide two options to connect to IBM WebSphere Application Server:
     * The same fields from "IBM WebSphere" endpoint section are repeated within the task.
 
 ## Support
-Support for this extension is provided on our [GitHub Issue Tracker](https://github.com/microsoft/vsts-ibm-websphere-extension/issues).  You
-can submit a [bug report](https://github.com/microsoft/vsts-ibm-websphere-extension/issues/new), a [feature request](https://github.com/microsoft/vsts-ibm-websphere-extension/issues/new)
-or participate in [discussions](https://github.com/microsoft/vsts-ibm-websphere-extension/issues).
+Support for this extension is provided on our [GitHub Issue Tracker](https://github.com/microsoft/vsts-ibm-websphere-extension/issues).  You can submit a [bug report](https://github.com/microsoft/vsts-ibm-websphere-extension/issues/new), a [feature request](https://github.com/microsoft/vsts-ibm-websphere-extension/issues/new) or participate in [discussions](https://github.com/microsoft/vsts-ibm-websphere-extension/issues).
 
 ## Contributing to the Extension
 See the [developer documentation](CONTRIBUTING.md) for details on how to contribute to this extension.
@@ -84,5 +80,4 @@ See the [developer documentation](CONTRIBUTING.md) for details on how to contrib
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
 
 ## Privacy Statement
-The [Microsoft Visual Studio Product Family Privacy Statement](http://go.microsoft.com/fwlink/?LinkId=528096&clcid=0x409)
-describes the privacy statement of this software.
+The [Microsoft Visual Studio Product Family Privacy Statement](http://go.microsoft.com/fwlink/?LinkId=528096&clcid=0x409) describes the privacy statement of this software.

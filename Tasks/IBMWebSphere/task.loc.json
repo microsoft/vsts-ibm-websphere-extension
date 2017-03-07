@@ -220,7 +220,7 @@
       "type": "boolean",
       "label": "ms-resource:loc.input.label.startApplication",
       "groupName": "deployTask",
-      "defaultValue": false,
+      "defaultValue": true,
       "required": false,
       "helpMarkDown": "ms-resource:loc.input.help.startApplication",
       "visibleRule": "installApplicationIfNotExist = true"
