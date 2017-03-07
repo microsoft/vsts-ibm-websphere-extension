@@ -74,7 +74,7 @@ The tasks provide two options to connect to IBM WebSphere Application Server:
 Support for this extension is provided on our [GitHub Issue Tracker](https://github.com/microsoft/vsts-ibm-websphere-extension/issues).  You can submit a [bug report](https://github.com/microsoft/vsts-ibm-websphere-extension/issues/new), a [feature request](https://github.com/microsoft/vsts-ibm-websphere-extension/issues/new) or participate in [discussions](https://github.com/microsoft/vsts-ibm-websphere-extension/issues).
 
 ## Contributing to the Extension
-See the [developer documentation](CONTRIBUTING.md) for details on how to contribute to this extension.
+See the [developer documentation](https://github.com/Microsoft/vsts-ibm-websphere-extension/blob/master/CONTRIBUTING.md) for details on how to contribute to this extension.
 
 ## Code of Conduct
 This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/). For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
