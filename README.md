@@ -2,7 +2,7 @@
 <td width="140px" style="text-align: center;"><img src="websphere_icon.png" style="max-width:100%" /></td>
 <td><strong>Visual Studio Team Services Extension for IBM WebSphere Application Server</strong><br />
 <i>Provides deployment task that automatically installs/updates enterprise applications in WebSphere Application Servers.</i><br />
-<a href="https://marketplace.visualstudio.com/items/ms-vsts.ibm-webshepere">Install now!</a>
+<a href="https://marketplace.visualstudio.com/items/ms-vsts.ibm-websphere">Install now!</a>
 </td>
 </tr></table>
 
