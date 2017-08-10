@@ -4,7 +4,7 @@
     "name": "IBM WebSphere Application Server",
     "version": "1.114.0",
     "publisher": "ms-vsts",
-    "description": "",
+    "description": "Deploy applications to IBM WebSphere",
     "public": false,
     "categories": [
         "Build and release"
@@ -37,7 +37,17 @@
         },
         "support": {
             "uri": "https://github.com/microsoft/vsts-ibm-websphere-extension/issues"
+        },
+        "repository": {
+            "uri": "https://github.com/microsoft/vsts-ibm-websphere-extension"
+        },
+        "issues": {
+            "uri": "https://github.com/microsoft/vsts-ibm-websphere-extension/issues"
         }
+    },
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/microsoft/vsts-ibm-websphere-extension"
     },
     "files": [
         {
@@ -97,7 +107,7 @@
                     {
                         "id": "ipaddress",
                         "name": "Host Address",
-                        "description": "The host name or IP address of the computer on which WebSphere is running.",
+                        "description": "The host name or IP address of the computer on which IBM WebSphere is running.",
                         "inputMode": "textbox",
                         "isConfidential": false,
                         "validation": {
