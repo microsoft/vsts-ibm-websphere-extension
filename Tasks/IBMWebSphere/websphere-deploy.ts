@@ -36,22 +36,19 @@ function findFile(filePath: string): string {
 function setConnectionSpec(tr: ToolRunner): ToolRunner {
     let connType: string = tl.getInput('connType', true);
     if (connType === 'address') {
-
         let ipAddress: string = tl.getInput('ipAddress', true);
         let port: string = tl.getInput('port', false);
-
         let username: string = tl.getInput('username', false);
         let password: string = tl.getInput('password', false);
 
         setupIntegrationNodeSpec(tr, ipAddress, port, username, password);
-
     } else if (connType === 'serviceEndpoint') {
         let serverEndpoint: string = tl.getInput('websphereEndpoint', true);
         let ipAddress: string = tl.getEndpointDataParameter(serverEndpoint, 'ipAddress', false);
         let port: string = tl.getEndpointDataParameter(serverEndpoint, 'port', true);
-
         let username: string = tl.getEndpointAuthorizationParameter(serverEndpoint, 'username', true);
         let password: string = tl.getEndpointAuthorizationParameter(serverEndpoint, 'password', true);
+
         setupIntegrationNodeSpec(tr, ipAddress, port, username, password);
     }
     tr.arg(['-conntype', 'SOAP']);
@@ -59,35 +56,37 @@ function setConnectionSpec(tr: ToolRunner): ToolRunner {
 }
 
 function setupIntegrationNodeSpec(tr: ToolRunner, ipAddress: string, port: string, username: string, password: string): void {
-        if (username) {
-            tr.arg(['-username', username]);
-            if (password) {
-                tr.arg(['-password', password]);
-            }
+    if (username) {
+        tr.arg(['-username', username]);
+        if (password) {
+            tr.arg(['-password', password]);
         }
+    }
 
-        if (ipAddress) {
-            tr.arg(['-host', ipAddress]);
-            if (port) {
-                tr.arg(['-port', port]);
-            }
+    if (ipAddress) {
+        tr.arg(['-host', ipAddress]);
+        if (port) {
+            tr.arg(['-port', port]);
         }
+    }
 }
 
 // Determine if the application exists. If it exists, update; otherwise install.
 function checkIfApplicationExist(wasCommand: string, appName: string): boolean {
-        let wsadminFind: ToolRunner = tl.tool(tl.which(wasCommand, true));
-        wsadminFind = setConnectionSpec(wsadminFind);
-        let findAppCommand = `AdminConfig.getid('/Deployment:${appName}/');`;
-        wsadminFind.arg(['-c', findAppCommand]);
-        let findApp: IExecResult = wsadminFind.execSync();
-        let appNotExist: boolean = findApp.stdout.indexOf(appName) === -1;
-        if (appNotExist) {
-            console.log(tl.loc('NotFoundApp', appName));
-        } else {
-            console.log(tl.loc('FoundApp', appName));
-        }
-        return appNotExist;
+    let wsadminFind: ToolRunner = tl.tool(tl.which(wasCommand, true));
+    wsadminFind = setConnectionSpec(wsadminFind);
+
+    let findAppCommand = `AdminConfig.getid('/Deployment:${appName}/');`;
+    wsadminFind.arg(['-c', findAppCommand]);
+
+    let findApp: IExecResult = wsadminFind.execSync();
+    let appNotExist: boolean = findApp.stdout.indexOf(appName) === -1;
+    if (appNotExist) {
+        console.log(tl.loc('NotFoundApp', appName));
+    } else {
+        console.log(tl.loc('FoundApp', appName));
+    }
+    return appNotExist;
 }
 
 async function run() {
@@ -100,6 +99,7 @@ async function run() {
             throw new Error(tl.loc('InvalidFile'));
         }
         tl.debug('input content file: ' + contentFile);
+
         let installApplicationIfNotExist: boolean = tl.getBoolInput('installApplicationIfNotExist', true);
         let wasCommand: string;
         if (os.type().match(/^Win/)) {
@@ -126,8 +126,9 @@ async function run() {
                 tl.debug('Extracting information from the application file.');
                 let wsadminExtract: ToolRunner = tl.tool(tl.which(wasCommand, true));
                 wsadminExtract = setConnectionSpec(wsadminExtract);
-                let extractAppCommand = `AdminApp.taskInfo('${contentFile}', 'MapWebModToVH');`;
+                let extractAppCommand: string = `AdminApp.taskInfo('${contentFile}', 'MapWebModToVH');`;
                 wsadminExtract.arg(['-c', extractAppCommand]);
+
                 let appInfo: IExecResult = wsadminExtract.execSync();
                 let autoWebModule: string = appInfo.stdout.match(/(Web module:\s)(.*?)\\n/)[2];
                 let autoUri: string = appInfo.stdout.match(/(URI:\s)(.*?)\\n/)[2];
