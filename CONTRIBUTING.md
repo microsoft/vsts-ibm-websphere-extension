@@ -53,6 +53,9 @@ To run the tests within Visual Studio Code, select the Debug viewlet, change the
 L0.js file (e.g., _build/Tasks/AppStoreRelease/Tests/L0.js) and press `F5`.  At this time, you cannot debug the task itself during tests as a second
 node process is created (in which the task is run).
 
+### Debug tests in Visual Studio Code
+After building the project, select the `Launch L0 Tests` configuration from the Debug Viewlet. Set breakpoints in the .JS files under `${workspaceroot}/_build/Tasks/IBMWebSphere/Tests` and start debugging.
+
 ### Testing task changes
 In order to test your task changes, you will need to upload the new task to your own account and test it with a build definition.  First, create a build definition
 you can use to test your changes. Then, after building the task you changed, upload the task to your account.  To upload a task, you will need to install the

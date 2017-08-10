@@ -2,21 +2,21 @@
 
 This extension contains a deployment task which allows you to automate the installation and update of applications to IBM WebSphere Application Servers. This extension installs the following components:
 * A service endpoint for connecting to IBM WebSphere Application Server on Visual Studio Team Services and Team Foundation Server 2017.
-* A build task to install / update enterprise application on WebSphere Application Servers.
+* A build task to install / update enterprise applications on WebSphere Application Servers.
 
 ## Prerequisites
 
-* In order to automate the installation and update of enterprise applications to WebSphere Application Servers, the build agent must have access to the 'wsadmin' commands. Please follow the IBM WebSphere document to setup the command environment.
-To check if the environment is setup correctly:
-  * You can run wsadmin.sh(Linux) / wsadmin.bat(Windows) command from the terminal or command line respectively. Make sure IBM WebSphere _bin/_ directory is in the PATH.
+* In order to automate the installation and update of enterprise applications to WebSphere Application Servers, the build agent must have access to the 'wsadmin' commands. Please follow the IBM WebSphere document to set up the command environment.
+To check if the environment is set up correctly:
+  * Ensure you can run `wsadmin.sh` (Linux) / `wsadmin.bat` (Windows) command from the terminal or command line respectively. Make sure IBM WebSphere _bin/_ directory is in the PATH.
   * Execute `wsadmin.sh -conntype SOAP -host <your_websphere_hostname> -port <your_websphere_SOAP_port> -username <your_username> -password <your_password> -c AdminControl.getNode\(\)` on the build agent. It should return the node name of the IBM WebSphere Application Server.
   * You may need to create a profile in your build agent to make the command line work.
 
 ## Quick Start
 
-Once you have set up the WebSphere environemnt, perform the following steps to automate the deployment of enterprise applications to WebSphere Application Servers:
+Once you have set up the WebSphere environment, perform the following steps to automate the deployment of enterprise applications to WebSphere Application Servers:
 
-1. Install the [IBM WebSphere extension](https://marketplace.visualstudio.com/items/ms-vsts.ibm-webshepere) from the Team Services Marketplace.
+1. Install the [IBM WebSphere extension](https://marketplace.visualstudio.com/items/ms-vsts.ibm-websphere) from the Team Services Marketplace.
 
 2. Go to your Visual Studio Team Services or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon) that is hooked up to your project's appropriate source repository.
 
@@ -24,11 +24,11 @@ Once you have set up the WebSphere environemnt, perform the following steps to a
 
 4. Click **Add build step...** and select **IBM WebSphere Deployment** task from the **Deploy** category.
 
-5. Configure the **IBM Websphere Deploment** task with the desired authentication method, and the install / update options.
+5. Configure the **IBM Websphere Deployment** task with the desired authentication method, and the install / update options.
 
 6. Click the **Queue Build** button or push a change to your configured repository in order to run the newly defined build.
 
-7. Your Webpshere application changes will now be automatically installed / updated to the WebSphere Application Servers!
+7. Your WebSphere application changes will now be automatically installed / updated to the WebSphere Application Servers!
 
 ## IBM WebSphere Application Deployment Task
 
@@ -40,9 +40,9 @@ Once you have set up the WebSphere environemnt, perform the following steps to a
 
     ![IBM WebSphere Deployment Task Details](images/websphere_deploy_task_details.PNG)
 
-    * Follow the __Setup Connection Options__ section below to setup connection to IBM WebSphere.
+    * Follow the __Set up Connection Options__ section below to set up the connection to IBM WebSphere.
     * Enter the application name.
-    * Enter the update content path. This should be the path points to the application file. Wildcards can be used, but the pattern must resolve to exactly one file.
+    * Enter the update content path. This should be the path that points to the application file. Wildcards can be used, but the pattern must resolve to exactly one file.
     * By default "Install Application If Not Exist" is checked. If the application does not exist, it will be first installed.
     * Enter the target cell, node, and application server name if this application is expected to be installed for the first time.
     * Enter the optional context root information. If left blank, the default context root will be _"/your_application_name"_.
@@ -53,19 +53,19 @@ Once you have set up the WebSphere environemnt, perform the following steps to a
 
     ![IBM WebSphere Update-only Task Details](images/websphere_update_only_task_details.PNG)
 
-### Setup Connection Options
+### Set up Connection Options
 
 The tasks provide two options to connect to IBM WebSphere Application Server:
 
 1. Connecting with an "IBM WebSphere" endpoint.
     * This option is supported on Visual Studio Team Services and Team Foundation Server 2017.  On Team Foundation Server 2015, please use other options to connect.
 
-    ![IBM websphere Endpoint](images/websphere_endpoint.PNG)
+    ![IBM WebSphere Endpoint](images/websphere_endpoint.PNG)
 
     * __Connection name__: name used to identify this connection.
     * __Hostname / IP Address__: IP address or the hostname of the computer on which the IBM WebSphere is running. The hostname must be resolvable by the build agent. Do not prefix with protocol names.
     * __Port__: SOAP port of the target WebSphere.
-    * __Username and Password__: Administrative user name and password of the target WebSphere. Make you can use this pair to login the WebSphere console.
+    * __Username and Password__: Administrative user name and password of the target WebSphere. Make sure you can use this pair to login the WebSphere console.
 
 1. Manually enter credentials.
     * The same fields from "IBM WebSphere" endpoint section are repeated within the task.
