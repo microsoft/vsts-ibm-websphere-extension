@@ -23,7 +23,7 @@ To check if the environment is setup correctly:
 
 ## Quick Start
 
-Once you have set up the WebSphere environemnt, perform the following steps to automate the deployment of applications to WebSphere Application Servers:
+Once you have set up the WebSphere environment, perform the following steps to automate the deployment of applications to WebSphere Application Servers:
 
 1. Install the [IBM WebSphere extension](https://marketplace.visualstudio.com/items/ms-vsts.ibm-webshepere) from the Team Services Marketplace.
 
@@ -33,11 +33,11 @@ Once you have set up the WebSphere environemnt, perform the following steps to a
 
 4. Click **Add build step...** and select **IBM WebSphere Deployment** task from the **Deploy** category.
 
-5. Configure the **IBM Websphere Deploment** task with the desired authentication method, and the install / update options.
+5. Configure the **IBM Websphere Deployment** task with the desired authentication method, and the install / update options.
 
 6. Click the **Queue Build** button or push a change to your configured repository in order to run the newly defined build.
 
-7. Your Webpshere application changes will now be automatically installed / updated to the WebSphere Application Servers!
+7. Your Websphere application changes will now be automatically installed / updated to the WebSphere Application Servers!
 
 ## IBM WebSphere Application Deployment Task
 
