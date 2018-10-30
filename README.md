@@ -6,7 +6,7 @@
 </td>
 </tr></table>
 
-# Azure DevOps for IBM WebSphere Application Server
+# Azure DevOps Extension for IBM WebSphere Application Server
 
 This extension contains a deployment task which allows you to automate the installation and update of applications to IBM WebSphere Application Servers. This extension installs the following components:
 * A service endpoint for connecting to IBM WebSphere Application Server on Azure DevOps and Team Foundation Server 2017.
