@@ -1,7 +1,7 @@
-# Visual Studio Team Services Extension for IBM WebSphere Application Server
+# Azure DevOps Extension for IBM WebSphere Application Server
 
 This extension contains a deployment task which allows you to automate the installation and update of applications to IBM WebSphere Application Servers. This extension installs the following components:
-* A service endpoint for connecting to IBM WebSphere Application Server on Visual Studio Team Services and Team Foundation Server 2017.
+* A service endpoint for connecting to IBM WebSphere Application Server on Azure DevOps and Team Foundation Server 2017.
 * A build task to install / update enterprise application on WebSphere Application Servers.
 
 ## Prerequisites
@@ -18,7 +18,7 @@ Once you have set up the WebSphere environment, perform the following steps to a
 
 1. Install the [IBM WebSphere extension](https://marketplace.visualstudio.com/items/ms-vsts.ibm-webshepere) from the Team Services Marketplace.
 
-2. Go to your Visual Studio Team Services or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon) that is hooked up to your project's appropriate source repository.
+2. Go to your Azure DevOps or TFS project, click on the **Build** tab, and create a new build definition (the "+" icon) that is hooked up to your project's appropriate source repository.
 
 3. Click **Add build step...** and select the necessary tasks to generate your release assets (e.g. **Maven**, **Gradle**).
 
@@ -58,7 +58,7 @@ Once you have set up the WebSphere environment, perform the following steps to a
 The tasks provide two options to connect to IBM WebSphere Application Server:
 
 1. Connecting with an "IBM WebSphere" endpoint.
-    * This option is supported on Visual Studio Team Services and Team Foundation Server 2017.  On Team Foundation Server 2015, please use other options to connect.
+    * This option is supported on Azure DevOps and Team Foundation Server 2017.  On Team Foundation Server 2015, please use other options to connect.
 
     ![IBM websphere Endpoint](images/websphere_endpoint.PNG)
 
