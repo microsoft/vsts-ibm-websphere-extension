@@ -14,12 +14,15 @@ This extension contains a deployment task which allows you to automate the insta
 
 ## Prerequisites
 
-* In order to automate the installation and update of enterprise applications to WebSphere Application Servers, the build agent must have access to the 'wsadmin' commands. Please follow the IBM WebSphere document to setup the command environment.
+* In order to automate the installation and update of enterprise applications to WebSphere Application Servers, the build agent must have access to the '[wsadmin](https://www.ibm.com/docs/en/was/9.0.5?topic=scripting-application-serving-environment-wsadmin)' commands. Please follow the IBM WebSphere document to setup the command environment.
 To check if the environment is setup correctly:
   * You can run wsadmin.sh(Linux) / wsadmin.bat(Windows) command from the terminal or command line respectively. Make sure IBM WebSphere _bin/_ directory is in the PATH.
   * Execute "wsadmin.sh -conntype SOAP -host <your_websphere_hostname> -port <your_websphere_SOAP_port> -username <your_username> -password <your_password> -c AdminControl.getNode\(\)"
   on the build agent. It should return the node name of the IBM WebSphere Application Server.
   * You may need to create a profile in your build agent to make the command line work.
+* For Cluster Topology type deploys, this extensions makes use of the [wsadmin-scripting-library](https://www.ibm.com/docs/en/was/9.0.5?topic=uslaaseuws-automating-administrative-architecture-setup-using-wsadmin-scripting-library). If creating and using an [administration-thin-client](https://www.ibm.com/docs/en/was/9.0.5?topic=wsadmin-using-administration-thin-client) on the build agent, the wsadmin-scripting-library directories must also be copied to the administration-thin-client. 
+To check if the wsadmin-scripting-library is available:
+  * Execute "wsadmin.sh -conntype SOAP -host <your_websphere_hostname> -port <your_websphere_SOAP_port> -username <your_username> -password <your_password> -c AdminNodeManagement.listNodes()" on the build agent. It should return the node names of the IBM WebSphere Application Server.
 
 ## Quick Start
 
